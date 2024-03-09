@@ -1,0 +1,1 @@
+HFY-Serverstuff is just a small plugin with some hardcoded changes for a server.
