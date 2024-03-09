@@ -32,6 +32,7 @@ package com.gmail.glitchkey.hfy_serverstuff;
 
 public class HFY_Serverstuff extends JavaPlugin
 {
+        BlockListener blockListener;
         MobListener mobListener;
         RecipeHandler recipeHandler;
         
@@ -39,30 +40,33 @@ public class HFY_Serverstuff extends JavaPlugin
         {
                 // Initialize the listeners and other handlers
                 if (mobListener == null) mobListener = new MobListener(this);
+                if (blockListener == null) blockListener = new BlockListener(this);
                 if (recipeHandler == null) recipeHandler = new RecipeHandler(this);
                 
-                LogInfo("HFY-Serverstuff loaded.");
+                logInfo("HFY-Serverstuff loaded.");
         }
         
         public void onEnable()
         {
                 // Enable the listeners and other handlers
+                blockListener.enable();
                 mobListener.enable();
                 recipeHandler.enable();
                 
-                LogInfo("HFY-Serverstuff enabled.");
+                logInfo("HFY-Serverstuff enabled.");
         }
         
         public void onDisable()
         {
                 // Disable the listeners and other handlers
+                blockListener.disable();
                 mobListener.disable();
                 recipeHandler.disable();
                 
-                LogInfo("HFY-Serverstuff disabled.");
+                logInfo("HFY-Serverstuff disabled.");
         }
         
-        public void LogInfo(String msg)
+        public void logInfo(String msg)
         {
                 getLogger().info(msg);
         }

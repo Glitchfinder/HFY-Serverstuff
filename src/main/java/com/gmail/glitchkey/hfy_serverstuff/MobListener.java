@@ -42,6 +42,7 @@ package com.gmail.glitchkey.hfy_serverstuff;
         import org.bukkit.event.vehicle.VehicleDamageEvent;
         import org.bukkit.event.vehicle.VehicleDestroyEvent;
         import org.bukkit.inventory.ItemStack;
+        import org.bukkit.inventory.meta.ItemMeta;
         import org.bukkit.Material;
         import org.bukkit.plugin.java.JavaPlugin;
 //* IMPORTS: OTHER
@@ -179,9 +180,9 @@ public class MobListener implements Listener
                 
                 // Get the player's weapon and calculate the drop chance
                 ItemStack weapon = entity.getKiller().getInventory().getItemInMainHand();
-                int enchant = weapon.getItemMeta().getEnchantLevel(Enchantment.LOOT_BONUS_MOBS);
+                int enchant = weapon.getEnchantmentLevel(Enchantment.LOOT_BONUS_MOBS);
                 float chance = 0.025f;
-                chance =+ 0.01f * ((float) enchant);
+                chance += 0.01f * ((float) enchant);
                 
                 // Do nothing unless the event passes a random check
                 if (random.nextFloat() > chance) return false;
