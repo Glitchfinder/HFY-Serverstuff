@@ -1,0 +1,7 @@
+name: HFY-Serverstuff
+version: 1.0
+description: This plugin adds a few miscellaneous rescipes and behaviors.
+author: Glitchfinder 
+website: https://github.com/Glitchfinder/HFY-Serverstuff
+
+main: com.gmail.glitchkey.hfy_serverstuff.HFY_Serverstuff
