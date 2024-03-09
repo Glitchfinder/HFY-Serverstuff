@@ -26,9 +26,13 @@ package com.gmail.glitchkey.hfy_serverstuff;
 //* IMPORTS: JDK/JRE
         import java.util.ArrayList;
         import java.util.Arrays;
+        import java.util.Random;
 //* IMPORTS: BUKKIT
+        import org.bukkit.enchantments.Enchantment;
         import org.bukkit.entity.EntityType;
+        import org.bukkit.entity.LivingEntity;
         import org.bukkit.event.entity.EntityDamageByEntityEvent;
+        import org.bukkit.event.entity.EntityDeathEvent;
         import org.bukkit.event.entity.EntityExplodeEvent;
         import org.bukkit.event.hanging.HangingBreakByEntityEvent;
         import org.bukkit.event.EventHandler;
@@ -37,6 +41,8 @@ package com.gmail.glitchkey.hfy_serverstuff;
         import org.bukkit.event.Listener;
         import org.bukkit.event.vehicle.VehicleDamageEvent;
         import org.bukkit.event.vehicle.VehicleDestroyEvent;
+        import org.bukkit.inventory.ItemStack;
+        import org.bukkit.Material;
         import org.bukkit.plugin.java.JavaPlugin;
 //* IMPORTS: OTHER
         //* NOT NEEDED
@@ -44,6 +50,7 @@ package com.gmail.glitchkey.hfy_serverstuff;
 public class MobListener implements Listener
 {
         JavaPlugin plugin;
+        Random random;
         ArrayList<EntityType> protectedEntities;
         
         public MobListener(JavaPlugin p)
@@ -70,6 +77,9 @@ public class MobListener implements Listener
                 protectedEntities.add(EntityType.MINECART_MOB_SPAWNER);
                 protectedEntities.add(EntityType.MINECART_TNT);
                 protectedEntities.add(EntityType.PAINTING);
+                
+                // Initialize a random
+                random = new Random();
         }
         
         public void enable()
@@ -145,5 +155,38 @@ public class MobListener implements Listener
 
                 // Prevent this entity from being damaged
                 event.setCancelled(true);
+        }
+        
+        @EventHandler(priority = EventPriority.NORMAL, ignoreCancelled = true)
+        public void handleHuskDrops(EntityDeathEvent event)
+        {
+                // Do nothing if there is no event or entity
+                if(event == null || event.getEntity() == null) return;
+                
+                // Do nothing if this entity is not a husk
+                if (event.getEntity().getType() != EntityType.HUSK) return;
+                
+                // Do nothing if no special block would drop
+                if(!hasSpecialDrop(event.getEntity())) return;
+                
+                // Add one block of sand to the husk's drops
+                event.getDrops().add(new ItemStack(Material.SAND));
+        }
+        
+        public boolean hasSpecialDrop(LivingEntity entity) {
+                // Only give special drops if this entity was killed by a player
+                if (entity.getKiller() == null) return false;
+                
+                // Get the player's weapon and calculate the drop chance
+                ItemStack weapon = entity.getKiller().getInventory().getItemInMainHand();
+                int enchant = weapon.getItemMeta().getEnchantLevel(Enchantment.LOOT_BONUS_MOBS);
+                float chance = 0.025f;
+                chance =+ 0.01f * ((float) enchant);
+                
+                // Do nothing unless the event passes a random check
+                if (random.nextFloat() > chance) return false;
+                
+                // Give a special drop
+                return true;
         }
 }
