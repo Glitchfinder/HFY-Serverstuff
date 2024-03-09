@@ -1,0 +1,19 @@
+== EnderSpawn ==
+**[[https://github.com/Glitchfinder/HFY-Serverstuff/releases|Download]] |
+[[https://github.com/Glitchfinder/HFY-Serverstuff|Source]] |
+[[https://github.com/Glitchfinder/HFY-Serverstuff/issues|Issue Tracker]]**
+
+HFY-Serverstuff is a small plugin with some non-configurable hardcoded changes
+developed for a small private server.
+
+=== Features ===
+* Creepers no longer destroy blocks.
+* Creepers no longer damage or destroy certain entities, such as boats and
+paintings.
+* Four flint can be crafted into gravel with a 2x2 shaped crafting recipe.
+* One cobblestone block can be crafted into one gravel block with a stonecutter.
+* One gravel block can be crafted into one sand block with a stonecutter.
+* Husks have a small chance to drop sand when directly killed by a player.
+* The chance for husks to drop sand is modified by the Looting enchantment.
+* Glass has a chance to drop sand when broken without silk touch.
+* The chance for glass to drop sand is modified by the Fortune enchantment.
