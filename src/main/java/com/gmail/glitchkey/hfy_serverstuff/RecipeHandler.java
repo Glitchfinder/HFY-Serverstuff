@@ -48,6 +48,7 @@ public class RecipeHandler
         {
                 flintToGravel();
                 cobbleToGravel();
+                gravelToSand();
         }
         
         public void disable()
@@ -76,6 +77,17 @@ public class RecipeHandler
                 ItemStack item = new ItemStack(Material.GRAVEL);
                 NamespacedKey key = new NamespacedKey(plugin, "cobble_to_gravel");
                 StonecuttingRecipe recipe = new StonecuttingRecipe(key, item, Material.COBBLESTONE);
+                
+                // Add the recipe
+                plugin.getServer().addRecipe(recipe);
+        }
+        
+        public void gravelToSand()
+        {
+                // Create initial recipe
+                ItemStack item = new ItemStack(Material.SAND);
+                NamespacedKey key = new NamespacedKey(plugin, "gravel_to_sand");
+                StonecuttingRecipe recipe = new StonecuttingRecipe(key, item, Material.GRAVEL);
                 
                 // Add the recipe
                 plugin.getServer().addRecipe(recipe);
