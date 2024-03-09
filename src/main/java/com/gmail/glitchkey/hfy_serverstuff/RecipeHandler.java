@@ -28,6 +28,7 @@ package com.gmail.glitchkey.hfy_serverstuff;
 //* IMPORTS: BUKKIT
         import org.bukkit.inventory.ItemStack;
         import org.bukkit.inventory.ShapedRecipe;
+        import org.bukkit.inventory.StonecuttingRecipe;
         import org.bukkit.Material;
         import org.bukkit.NamespacedKey;
         import org.bukkit.plugin.java.JavaPlugin;
@@ -46,6 +47,7 @@ public class RecipeHandler
         public void enable()
         {
                 flintToGravel();
+                cobbleToGravel();
         }
         
         public void disable()
@@ -63,6 +65,17 @@ public class RecipeHandler
                 // Set the crafting requirements
                 recipe.shape("ff", "ff");
                 recipe.setIngredient('f', Material.FLINT);
+                
+                // Add the recipe
+                plugin.getServer().addRecipe(recipe);
+        }
+        
+        public void cobbleToGravel()
+        {
+                // Create initial recipe
+                ItemStack item = new ItemStack(Material.GRAVEL);
+                NamespacedKey key = new NamespacedKey(plugin, "cobble_to_gravel");
+                StonecuttingRecipe recipe = new StonecuttingRecipe(key, item, Material.COBBLESTONE);
                 
                 // Add the recipe
                 plugin.getServer().addRecipe(recipe);
