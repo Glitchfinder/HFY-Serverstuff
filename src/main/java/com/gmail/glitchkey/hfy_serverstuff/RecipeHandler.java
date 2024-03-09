@@ -26,44 +26,45 @@ package com.gmail.glitchkey.hfy_serverstuff;
 //* IMPORTS: JDK/JRE
         //* NOT NEEDED
 //* IMPORTS: BUKKIT
+        import org.bukkit.inventory.ItemStack;
+        import org.bukkit.inventory.ShapedRecipe;
+        import org.bukkit.Material;
+        import org.bukkit.NamespacedKey;
         import org.bukkit.plugin.java.JavaPlugin;
 //* IMPORTS: OTHER
         //* NOT NEEDED
 
-public class HFY_Serverstuff extends JavaPlugin
+public class RecipeHandler
 {
-        MobListener mobListener;
-        RecipeHandler recipeHandler;
+        JavaPlugin plugin;
         
-        public void onLoad()
+        public RecipeHandler(JavaPlugin p)
         {
-                // Initialize the listeners and other handlers
-                if (mobListener == null) mobListener = new MobListener(this);
-                if (recipeHandler == null) recipeHandler = new RecipeHandler(this);
-                
-                LogInfo("HFY-Serverstuff loaded.");
+                plugin = p;
         }
         
-        public void onEnable()
+        public void enable()
         {
-                // Enable the listeners and other handlers
-                mobListener.enable();
-                recipeHandler.enable();
-                
-                LogInfo("HFY-Serverstuff enabled.");
+                flintToGravel();
         }
         
-        public void onDisable()
+        public void disable()
         {
-                // Disable the listeners and other handlers
-                mobListener.disable();
-                recipeHandler.disable();
-                
-                LogInfo("HFY-Serverstuff disabled.");
+                // Do nothing here because removing recipes may cause data loss
         }
         
-        public void LogInfo(String msg)
+        public void flintToGravel()
         {
-                getLogger().info(msg);
+                // Create initial recipe
+                ItemStack item = new ItemStack(Material.GRAVEL);
+                NamespacedKey key = new NamespacedKey(plugin, "flint_to_gravel");
+                ShapedRecipe recipe = new ShapedRecipe(key, item);
+                
+                // Set the crafting requirements
+                recipe.shape("ff", "ff");
+                recipe.setIngredient('f', Material.FLINT);
+                
+                // Add the recipe
+                plugin.getServer().addRecipe(recipe);
         }
 }

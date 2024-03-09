@@ -37,7 +37,6 @@ package com.gmail.glitchkey.hfy_serverstuff;
         import org.bukkit.event.Listener;
         import org.bukkit.event.vehicle.VehicleDamageEvent;
         import org.bukkit.event.vehicle.VehicleDestroyEvent;
-        
         import org.bukkit.plugin.java.JavaPlugin;
 //* IMPORTS: OTHER
         //* NOT NEEDED
