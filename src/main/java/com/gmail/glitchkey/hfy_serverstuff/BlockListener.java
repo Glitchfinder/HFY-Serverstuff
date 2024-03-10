@@ -69,6 +69,9 @@ public class BlockListener implements Listener
                 // Do nothing if there is no event or player
                 if(event == null || event.getPlayer() == null) return;
                 
+                // Do nothing if the block is not glass
+                if (event.getBlock().getType() != Material.GLASS) return;
+                
                 // Do nothing if the player is in creative mode
                 if (event.getPlayer().getGameMode() == GameMode.CREATIVE) return;
                 
