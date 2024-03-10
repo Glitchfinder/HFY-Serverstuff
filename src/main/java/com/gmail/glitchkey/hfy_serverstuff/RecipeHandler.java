@@ -28,6 +28,7 @@ package com.gmail.glitchkey.hfy_serverstuff;
 //* IMPORTS: BUKKIT
         import org.bukkit.inventory.ItemStack;
         import org.bukkit.inventory.ShapedRecipe;
+        import org.bukkit.inventory.ShapelessRecipe;
         import org.bukkit.inventory.StonecuttingRecipe;
         import org.bukkit.Material;
         import org.bukkit.NamespacedKey;
@@ -49,6 +50,7 @@ public class RecipeHandler
                 flintToGravel();
                 cobbleToGravel();
                 gravelToSand();
+                dyeSand();
         }
         
         public void disable()
@@ -88,6 +90,33 @@ public class RecipeHandler
                 ItemStack item = new ItemStack(Material.SAND);
                 NamespacedKey key = new NamespacedKey(plugin, "gravel_to_sand");
                 StonecuttingRecipe recipe = new StonecuttingRecipe(key, item, Material.GRAVEL);
+                
+                // Add the recipe
+                plugin.getServer().addRecipe(recipe);
+        }
+        
+        public void dyeSand()
+        {
+                // Add recipes for red-tinted dyes to make red sand
+                handleDyeSandRecipe(Material.BROWN_DYE, "brown_dye_to_red_sand");
+                handleDyeSandRecipe(Material.MAGENTA_DYE, "magenta_dye_to_red_sand");
+                handleDyeSandRecipe(Material.ORANGE_DYE, "orange_dye_to_red_sand");
+                handleDyeSandRecipe(Material.PINK_DYE, "pink_dye_to_red_sand");
+                handleDyeSandRecipe(Material.PURPLE_DYE, "purple_dye_to_red_sand");
+                handleDyeSandRecipe(Material.RED_DYE, "red_dye_to_red_sand");
+                handleDyeSandRecipe(Material.YELLOW_DYE, "yellow_dye_to_red_sand");
+        }
+        
+        public void handleDyeSandRecipe(Material dye, String name)
+        {
+                // Create initial recipe
+                ItemStack item = new ItemStack(Material.RED_SAND);
+                NamespacedKey key = new NamespacedKey(plugin, name);
+                ShapelessRecipe recipe = new ShapelessRecipe(key, item);
+                
+                // Set the crafting requirements
+                recipe.addIngredient(1, Material.SAND);
+                recipe.addIngredient(1, dye);
                 
                 // Add the recipe
                 plugin.getServer().addRecipe(recipe);
