@@ -28,7 +28,6 @@ package com.gmail.glitchkey.hfy_serverstuff;
 //* IMPORTS: BUKKIT
         import org.bukkit.inventory.ItemStack;
         import org.bukkit.inventory.ShapedRecipe;
-        import org.bukkit.inventory.ShapelessRecipe;
         import org.bukkit.inventory.StonecuttingRecipe;
         import org.bukkit.Material;
         import org.bukkit.NamespacedKey;
@@ -111,12 +110,14 @@ public class RecipeHandler
         {
                 // Create initial recipe
                 ItemStack item = new ItemStack(Material.RED_SAND);
+                item.setAmount(8);
                 NamespacedKey key = new NamespacedKey(plugin, name);
-                ShapelessRecipe recipe = new ShapelessRecipe(key, item);
+                ShapedRecipe recipe = new ShapedRecipe(key, item);
                 
                 // Set the crafting requirements
-                recipe.addIngredient(1, Material.SAND);
-                recipe.addIngredient(1, dye);
+                recipe.shape("fff", "faf", "fff");
+                recipe.setIngredient('f', Material.SAND);
+                recipe.setIngredient('a', dye);
                 
                 // Add the recipe
                 plugin.getServer().addRecipe(recipe);
