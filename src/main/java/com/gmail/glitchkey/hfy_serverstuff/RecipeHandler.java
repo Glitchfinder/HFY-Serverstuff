@@ -50,6 +50,7 @@ public class RecipeHandler
                 cobbleToGravel();
                 gravelToSand();
                 dyeSand();
+                netherrackToRedSand();
         }
         
         public void disable()
@@ -118,6 +119,17 @@ public class RecipeHandler
                 recipe.shape("fff", "faf", "fff");
                 recipe.setIngredient('f', Material.SAND);
                 recipe.setIngredient('a', dye);
+                
+                // Add the recipe
+                plugin.getServer().addRecipe(recipe);
+        }
+        
+        public void netherrackToRedSand()
+        {
+                // Create initial recipe
+                ItemStack item = new ItemStack(Material.RED_SAND);
+                NamespacedKey key = new NamespacedKey(plugin, "netherrack_to_red_sand");
+                StonecuttingRecipe recipe = new StonecuttingRecipe(key, item, Material.NETHERRACK);
                 
                 // Add the recipe
                 plugin.getServer().addRecipe(recipe);
