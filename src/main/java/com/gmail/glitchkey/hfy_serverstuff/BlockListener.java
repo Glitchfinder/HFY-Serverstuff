@@ -24,6 +24,7 @@
 package com.gmail.glitchkey.hfy_serverstuff;
 
 //* IMPORTS: JDK/JRE
+        import java.util.ArrayList;
         import java.util.Random;
 //* IMPORTS: BUKKIT
         import org.bukkit.enchantments.Enchantment;
@@ -45,12 +46,55 @@ public class BlockListener implements Listener
         JavaPlugin plugin;
         Random random;
         
+        ArrayList<Material> glassBlocks;
+        ArrayList<Material> glassPanes;
+        
         public BlockListener(JavaPlugin p)
         {
                 plugin = p;
                 
                 // Initialize a random
                 random = new Random();
+                
+                // Initialize the glass block list
+                glassBlocks = new ArrayList();
+                glassBlocks.add(Material.BLACK_STAINED_GLASS);
+                glassBlocks.add(Material.BLUE_STAINED_GLASS);
+                glassBlocks.add(Material.BROWN_STAINED_GLASS);
+                glassBlocks.add(Material.CYAN_STAINED_GLASS);
+                glassBlocks.add(Material.GLASS);
+                glassBlocks.add(Material.GRAY_STAINED_GLASS);
+                glassBlocks.add(Material.GREEN_STAINED_GLASS);
+                glassBlocks.add(Material.LIGHT_BLUE_STAINED_GLASS);
+                glassBlocks.add(Material.LIGHT_GRAY_STAINED_GLASS);
+                glassBlocks.add(Material.LIME_STAINED_GLASS);
+                glassBlocks.add(Material.MAGENTA_STAINED_GLASS);
+                glassBlocks.add(Material.ORANGE_STAINED_GLASS);
+                glassBlocks.add(Material.PINK_STAINED_GLASS);
+                glassBlocks.add(Material.PURPLE_STAINED_GLASS);
+                glassBlocks.add(Material.RED_STAINED_GLASS);
+                glassBlocks.add(Material.WHITE_STAINED_GLASS);
+                glassBlocks.add(Material.YELLOW_STAINED_GLASS);
+                
+                // Initialize the glass pane list
+                glassPanes = new ArrayList();
+                glassPanes.add(Material.BLACK_STAINED_GLASS_PANE);
+                glassPanes.add(Material.BLUE_STAINED_GLASS_PANE);
+                glassPanes.add(Material.BROWN_STAINED_GLASS_PANE);
+                glassPanes.add(Material.CYAN_STAINED_GLASS_PANE);
+                glassPanes.add(Material.GLASS_PANE);
+                glassPanes.add(Material.GRAY_STAINED_GLASS_PANE);
+                glassPanes.add(Material.GREEN_STAINED_GLASS_PANE);
+                glassPanes.add(Material.LIGHT_BLUE_STAINED_GLASS_PANE);
+                glassPanes.add(Material.LIGHT_GRAY_STAINED_GLASS_PANE);
+                glassPanes.add(Material.LIME_STAINED_GLASS_PANE);
+                glassPanes.add(Material.MAGENTA_STAINED_GLASS_PANE);
+                glassPanes.add(Material.ORANGE_STAINED_GLASS_PANE);
+                glassPanes.add(Material.PINK_STAINED_GLASS_PANE);
+                glassPanes.add(Material.PURPLE_STAINED_GLASS_PANE);
+                glassPanes.add(Material.RED_STAINED_GLASS_PANE);
+                glassPanes.add(Material.WHITE_STAINED_GLASS_PANE);
+                glassPanes.add(Material.YELLOW_STAINED_GLASS_PANE);
         }
         
         public void enable()
@@ -69,8 +113,11 @@ public class BlockListener implements Listener
                 // Do nothing if there is no event or player
                 if(event == null || event.getPlayer() == null) return;
                 
+                // Get the block material
+                Material m = event.getBlock().getType();
+                
                 // Do nothing if the block is not glass
-                if (event.getBlock().getType() != Material.GLASS) return;
+                if (!glassPanes.contains(m) && !glassBlocks.contains(m)) return;
                 
                 // Do nothing if the player is in creative mode
                 if (event.getPlayer().getGameMode() == GameMode.CREATIVE) return;
@@ -85,6 +132,9 @@ public class BlockListener implements Listener
                 int enchant = weapon.getEnchantmentLevel(Enchantment.LOOT_BONUS_BLOCKS);
                 float chance = 0.25f;
                 chance += 0.25f * ((float) enchant);
+                
+                // modify the chance for glass panes
+                if (glassPanes.contains(m)) chance *= 0.375f;
                 
                 // Do nothing unless the event passes a random check
                 if (random.nextFloat() > chance) return;

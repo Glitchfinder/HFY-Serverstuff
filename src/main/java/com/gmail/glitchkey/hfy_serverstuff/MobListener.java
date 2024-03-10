@@ -25,7 +25,6 @@ package com.gmail.glitchkey.hfy_serverstuff;
 
 //* IMPORTS: JDK/JRE
         import java.util.ArrayList;
-        import java.util.Arrays;
         import java.util.Random;
 //* IMPORTS: BUKKIT
         import org.bukkit.enchantments.Enchantment;
